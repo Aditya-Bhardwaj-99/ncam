@@ -5,6 +5,10 @@ const server=http.createServer(app);
 const websokcet = require("ws");
 const wss = new websokcet.Server({server:server,path:'/picam'});
 
+app.get('/',function(req,res){
+    res.end("on hai bhai")
+})
+
 wss.broadcast = function broadcast(msg) {
     console.log(msg);
     wss.clients.forEach(function each(client) {
