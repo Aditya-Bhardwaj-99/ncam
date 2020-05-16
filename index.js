@@ -1,6 +1,7 @@
 const http=require("http");
 const express = require('express');
 const app = express();
+const rtsp = require('rtsp-ffmpeg');
 const server=http.createServer(app);
 const websokcet = require("ws");
 const wss = new websokcet.Server({server:server,path:'/picam'});
@@ -18,7 +19,8 @@ wss.broadcast = function broadcast(msg) {
 
 wss.on('connection',function(ws){
     ws.on('message',function(data){
-        wss.broadcast(data);
+        stream = new rtsp.FFMpeg({input:data.toString()});
+        stream.on('data',function(data){wss.broadcast(data.toString('base64'))})
     })
 })
 
