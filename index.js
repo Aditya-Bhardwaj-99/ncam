@@ -19,8 +19,7 @@ wss.broadcast = function broadcast(msg) {
 
 wss.on('connection',function(ws){
     ws.on('message',function(data){
-        stream = new rtsp.FFMpeg({input:data.toString()});
-        stream.on('data',function(data){wss.broadcast(data.toString('base64'))})
+        wss.broadcast(data);
     })
 })
 
