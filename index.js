@@ -6,7 +6,7 @@ const websokcet = require("ws");
 const wss = new websokcet.Server({server:server,path:'/picam'});
 
 app.get("/",function(req,res){
-    res.send("workinnnnnnnnnnnng")
+    res.end("workinnnnnnnnnnnng")
 })
 
 wss.broadcast = function broadcast(msg) {
@@ -20,3 +20,5 @@ wss.on('connection',(ws)=>{
         wss.broadcast(msg);
     })
 })
+
+server.listen(process.env.PORT)
